@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel = "icon" type = "image/png" href = "img/favicon.jpg">
+  <link rel="stylesheet" href="style.css">
+  <title>Reservation: Your Choice</title>
+
+  <!-- reservation.html -->
+
+
+<!-- Add this script at the end of the body tag -->
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.8.0/firebase-database.js"></script>
+
+<script>
+  // Initialize Firebase (replace with your own Firebase project configuration)
+  var firebaseConfig = {
+    apiKey: "AIzaSyA3o8msMPva9X-tOy-2lkvv2vIz5ezS9jU",
+    authDomain: "resturant-6d55d.firebaseapp.com",
+    projectId: "resturant-6d55d",
+    storageBucket: "resturant-6d55d.appspot.com",
+    messagingSenderId: "1008380110587",
+    appId: "1:1008380110587:web:00de1201f5d5baa6c0f25e"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  // Reference to the database
+  var database = firebase.database();
+
+  // Function to handle form submission
+  function submitForm() {
+    var name = document.getElementById('name').value;
+    var email = document.getElementById('email').value;
+    var numberOfPerson = document.getElementById('numberOfPerson').value;
+    var phoneNumber = document.getElementById('phoneNumber').value;
+    var date = document.getElementById('date').value;
+    var time = document.getElementById('time').value;
+    var message = document.getElementById('message').value;
+
+    // Save form data to Firebase
+    database.ref('reservations').push({
+      name: name,
+      email: email,
+      numberOfPerson: numberOfPerson,
+      phoneNumber: phoneNumber,
+      date: date,
+      time: time,
+      message: message
+    })
+      .then(function () {
+        // Reset the form after successful submission
+        document.getElementById('reservationForm').reset();
+        alert('Reservation submitted successfully!');
+      })
+      .catch(function (error) {
+        console.error('Error submitting reservation:', error);
+        alert('Error submitting reservation. Please try again later.');
+      });
+  }
+</script>
+
+
+
+  
+</head>
+<body>
+  <header>
+    <div  style="background-image: url(); background-attachment: fixed; height: 600px; width: 100%; background-position: center; background-repeat: no-repeat; background-size: cover;">
+
+     <!-- navbar -->
+      <nav class="nav navbar fixed-top navbar-expand-lg navbar-dark p-md-3 bg-dark-transparent">
+        <div class="container">
+          <a class="navbar-brand" href="#">
+            <img src="img/logo2.png" height="50" alt="Your choise logo">
+          </a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          
+          <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+            <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+              <li class="nav-item footer-link-item">
+                <a class="nav-link text-dark" href="index.html">HOME</a>
+              </li>
+              <li class="nav-item footer-link-item">
+                <a class="nav-link text-dark" href="menu.html">MENU</a>
+              </li>
+              <li class="nav-item active footer-link-item">
+                <a class="nav-link text-dark" href="reservation.html">RESERVATION</a>
+              </li>
+              <li class="nav-item footer-link-item">
+                <a class="nav-link text-dark" href="contact.html">CONTACT US</a>
+              </li>
+              <li class="nav-item footer-link-item">
+                <a class="nav-link text-dark" href="about.html">ABOUT US</a>
+              </li>
+            </ul>
+          </div> <!--collapse end-->
+        </div> <!--container end-->
+      </nav> <!--navbar end-->
+      
+      <div class="container flex-column d-flex justify-content-center"style=" height: 600px;">
+        <div class="text-center py-4" >
+          <h1 class="text-white py-3">
+            <span class="font-weight-bold">RESERVATION</span>
+          </h1>
+        </div>
+        <a href="#" class="gotoupbtn"><i class="far fa-arrow-alt-circle-up"></i></a>
+      </div>
+    </div>
+  </header>
+  
+  <section>
+    <div class="container shadow py-5 my-5">
+      <div class="row py-3 justify-content-center">
+        <div class="col-md-8 col-sm-12">
+          <form onsubmit="submitForm(); return false;" id="reservationForm">
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="name">Full Name</label>
+                <input type="text" class="form-control border-dark" placeholder="Name" id="name" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="email">Email Address</label>
+                <input type="email" class="form-control border-dark" placeholder="Email" id="email" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="numberOfPerson">Number of person</label>
+                <select class="form-control border-dark" aria-placeholder="Number of person" id="numberOfPerson" required>
+                  <option>1</option>
+                  <option>2</option>
+                  <option>3</option>
+                  <option>4</option>
+                  <option>5</option>
+                  <option>6</option>
+                  <option>7</option>
+                  <option>8</option>
+                  
+                </select>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="phoneNumber">Phone Number</label>
+                <input type="tel" class="form-control border-dark" placeholder="+91*********" id="phoneNumber" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="date">Date</label>
+                <input type="date" class="form-control border-dark" id="date" required>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="time">Time</label>
+                <input type="time" class="form-control border-dark" id="time" required>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-12 col-sm-12">
+                <label for="message">Message</label>
+                <textarea class="form-control border-dark" id="message"></textarea>
+              </div>
+            </div>
+            <button type="submit" class="col-12 btn border-dark custom-btn">Submit</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+ 
+  <!-- footer 4-->
+  <footer class="">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-4 col-md-12 text-center">
+          <hr class="pt-5 mt-5">
+        </div>
+        <div class="col-lg-4 col-md-12 text-center">
+          <img src="img/logo1.png" height="150" alt="Your choice logo">
+        </div>
+        <div class="col-lg-4 col-md-12 text-center">
+          <hr class="pt-5 mt-5">
+        </div>
+      </div> <!--row end-->
+      
+     
+      
+      <div class="row justify-content-center">
+        <div class="col-md-9 col-sm-10 px-2 py-3">
+          <div class="d-flex justify-content-between py-3 my-2">
+            <a href="www.twitter.com" class="icon-link"><i class="fab fa-twitter"></i></a>
+            <a href="www.pinterest.com" class="icon-link"><i class="fab fa-pinterest"></i></a>
+            <a href="www.instagram.com" class="icon-link"><i class="fab fa-instagram"></i></a>
+            <a href="www.facebook.com" class="icon-link"><i class="fab fa-facebook"></i></a>
+          </div>
+        </div>
+      </div> <!--row end-->
+      
+      <div class="row">
+        <div class="col-md-4 col-sm-12 py-4 text-sm-center text-md-left">
+          <div class="flex-column">
+            <div class="py-2 p-1 m-2"><a href="index.html" class="footer-link-item">HOME</a></div>
+            <div class="py-2 p-1 m-2"><a href="menu.html" class="footer-link-item">MENU</a></div>
+            <div class="py-2 p-1 m-2"><a href="reservation.html" class="footer-link-item">RESERVATION</a></div>
+            <div class="py-2 p-1 m-2"><a href="about.html" class="footer-link-item">ABOUT US</a></div>
+            <div class="py-2 p-1 m-2"><a href="contact.html" class="footer-link-item">CONTACT US</a></div>
+          </div>
+        </div>
+        <div class="col-md-4 col-sm-12 py-4 text-sm-center text-md-left">
+          <div class="flex-column">
+            <div class="py-2 p-1 m-2">
+              <i class="fas fa-phone-volume fs-30"></i>
+              <a href="tel:+111 222 333"><span class="footer-link-item">+111 222 333</span></a>
+            </div>
+            <div class="py-2 p-1 m-2">
+              <i class="fas fa-envelope-open-text fs-30"></i>
+              <a href="mailto:yourchoice@gmail.com"><span class="footer-link-item"> vanshika@gmail.com</span></a>
+            </div>
+            
+          </div>
+        </div>
+        
+      </div> <!--row end-->
+    </div> <!--container end-->
+    <div class="container-fluid bg-footer-dark text-white">
+      <div class="row">
+        <div class="col-12 text-center py-3 my-2">
+          <small>Copyright &copy; 2024 Your Choice. All rights reserved.</small>
+        </div>
+      </div>
+    </div>
+  </footer> <!--footer end-->
+  
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js" integrity="sha384-+YQ4JLhjyBLPDQt//I+STsc9iw4uQqACwlvpslubQzn4u2UU2UFM80nGisd026JF" crossorigin="anonymous"></script>
+  
+</body>
+</html>
